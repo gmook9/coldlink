@@ -14,6 +14,7 @@ import QrCodePreview from "./components/QrCodePreview";
 
 export default function Home() {
   const [url, setUrl] = useState("");
+  const [generatedUrl, setGeneratedUrl] = useState("");
 
   const normalizedUrl = useMemo(() => url.trim(), [url]);
 
@@ -60,7 +61,7 @@ export default function Home() {
                 </label>
                 <Input
                   id="qr-url"
-                  placeholder="https://coldlink.dev"
+                  placeholder="https://example.com"
                   value={url}
                   onChange={(event) => setUrl(event.target.value)}
                 />
@@ -73,19 +74,22 @@ export default function Home() {
 
               <div className="flex flex-wrap items-center gap-3">
                 <Button
-                  variant="ghost"
-                  onClick={() => setUrl("https://coldlink.dev")}
+                  variant="primary"
+                  disabled={!normalizedUrl}
+                  onClick={() => setGeneratedUrl(normalizedUrl)}
                 >
-                  Use Coldlink sample
+                  Generate
                 </Button>
-                <div className="rounded-full bg-zinc-900 px-4 py-2 text-xs text-zinc-400">
-                  Encoded URL: {normalizedUrl || "—"}
-                </div>
+                {generatedUrl ? (
+                  <div className="rounded-full bg-zinc-900 px-4 py-2 text-xs text-zinc-400">
+                    Encoded URL: {generatedUrl}
+                  </div>
+                ) : null}
               </div>
             </CardContent>
           </Card>
 
-          <QrCodePreview value={normalizedUrl} />
+          <QrCodePreview value={generatedUrl} />
         </section>
       </main>
     </div>
