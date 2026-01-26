@@ -11,6 +11,7 @@ import {
   Input,
 } from "@gmook9/pristine-ui";
 import QrCodePreview from "./components/QrCodePreview";
+import Squares from "./components/Squares";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -19,8 +20,17 @@ export default function Home() {
   const normalizedUrl = useMemo(() => url.trim(), [url]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-14">
+    <div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+      <div className="absolute inset-0">
+        <Squares
+          speed={0.5}
+          squareSize={40}
+          direction="diagonal"
+          borderColor="#271E37"
+          hoverFillColor="#222222"
+        />
+      </div>
+      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-14">
         <section className="flex flex-col items-center gap-6 text-center">
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-300">
