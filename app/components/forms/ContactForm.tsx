@@ -38,7 +38,7 @@ export default function ContactForm({
           </label>
           <Input
             id="contact-first"
-            placeholder="John"
+            placeholder="Connor"
             value={firstName}
             onChange={(event) => onChange("firstName", event.target.value)}
           />
@@ -49,7 +49,7 @@ export default function ContactForm({
           </label>
           <Input
             id="contact-last"
-            placeholder="Doe"
+            placeholder="Kenway"
             value={lastName}
             onChange={(event) => onChange("lastName", event.target.value)}
           />
@@ -62,7 +62,7 @@ export default function ContactForm({
         </label>
         <Input
           id="contact-phone"
-          placeholder="+1 234 567 8900"
+          placeholder="+1 909 090 0909"
           value={phone}
           onChange={(event) => onChange("phone", event.target.value)}
         />
@@ -74,7 +74,7 @@ export default function ContactForm({
         </label>
         <Input
           id="contact-email"
-          placeholder="john@example.com"
+          placeholder="Connor@example.com"
           value={email}
           onChange={(event) => onChange("email", event.target.value)}
         />
