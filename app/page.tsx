@@ -13,6 +13,7 @@ import {
   ToastDescription,
   ToastTitle,
 } from "@gmook9/pristine-ui";
+import { Tag, User, Zap } from "lucide-react";
 import QrCodePreview from "./components/QrCodePreview";
 import QrTypeTabs, { QrType } from "./components/QrTypeTabs";
 import UrlForm from "./components/forms/UrlForm";
@@ -385,9 +386,18 @@ export default function Home() {
             Paste a URL, generate a crisp QR code, and download it instantly.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Badge className="bg-emerald-500/15 text-emerald-200">100% Free</Badge>
-            <Badge className="bg-zinc-800 text-zinc-200">No Signup</Badge>
-            <Badge className="bg-blue-500/15 text-blue-200">Instant Download</Badge>
+            <Badge className="flex items-center gap-2 bg-emerald-500/15 text-emerald-200">
+              <Tag className="h-3.5 w-3.5" />
+              100% Free
+            </Badge>
+            <Badge className="flex items-center gap-2 bg-zinc-800 text-zinc-200">
+              <User className="h-3.5 w-3.5" />
+              No Signup
+            </Badge>
+            <Badge className="flex items-center gap-2 bg-blue-500/15 text-blue-200">
+              <Zap className="h-3.5 w-3.5" />
+              Instant Download
+            </Badge>
           </div>
         </section>
 
