@@ -370,7 +370,7 @@ export default function Home() {
           hoverFillColor="#222222"
         />
       </div>
-      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-14">
+      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-8">
         <section className="flex flex-col items-center gap-6 text-center">
           <div className="flex items-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-300">
