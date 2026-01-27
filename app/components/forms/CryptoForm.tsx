@@ -28,8 +28,8 @@ export default function CryptoForm({
             onClick={() => onNetworkChange("bitcoin")}
             className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition ${
               network === "bitcoin"
-                ? "border-orange-300 bg-orange-50 text-orange-600 shadow-sm"
-                : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-300"
+                ? "border-orange-300! bg-orange-500/30 text-orange-200! shadow-sm"
+                : "border-zinc-700 bg-zinc-950/60 text-zinc-300 hover:border-zinc-500 hover:bg-orange-500/10"
             }`}
           >
             <Bitcoin className="h-4 w-4" />
@@ -40,8 +40,8 @@ export default function CryptoForm({
             onClick={() => onNetworkChange("ethereum")}
             className={`flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition ${
               network === "ethereum"
-                ? "border-zinc-300 bg-zinc-900 text-white shadow-sm"
-                : "border-zinc-200 bg-white text-zinc-500 hover:border-zinc-300"
+                ? "border-blue-400/70! bg-indigo-500/30 text-indigo-200! shadow-sm"
+                : "border-zinc-700 bg-zinc-950/60 text-zinc-300 hover:border-zinc-500 hover:bg-indigo-500/10"
             }`}
           >
             <Coins className="h-4 w-4" />
