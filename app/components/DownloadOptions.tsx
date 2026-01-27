@@ -53,9 +53,9 @@ export default function DownloadOptions({
             disabled={!isReady}
             className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition ${
               activeFormat === "png"
-                ? "bg-blue-600 text-white"
-                : "bg-zinc-800 text-zinc-200"
-            } ${isReady ? "hover:bg-blue-500" : "cursor-not-allowed opacity-60"}`}
+                ? "bg-blue-600! text-white"
+                : "bg-zinc-800! text-zinc-200"
+            } ${isReady ? "hover:bg-blue-500!" : "cursor-not-allowed opacity-60"}`}
           >
             <Download className="h-4 w-4" />
             PNG
