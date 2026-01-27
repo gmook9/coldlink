@@ -20,7 +20,7 @@ export default function LocationForm({
       <button
         type="button"
         onClick={onUseCurrent}
-        className="w-full rounded-lg border border-zinc-800 bg-zinc-950/60 px-3 py-2 text-sm font-medium text-zinc-200 shadow-sm transition hover:border-zinc-700"
+        className="w-full rounded-lg border border-zinc-800 bg-zinc-950/60 px-3 py-2 text-sm font-medium text-zinc-200 shadow-sm transition hover:border-zinc-700!"
       >
         Use my current location
       </button>

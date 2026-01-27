@@ -15,7 +15,7 @@ export default function PhoneForm({ phone, onChange }: PhoneFormProps) {
       </label>
       <Input
         id="phone-number"
-        placeholder="+1 234 567 8900"
+        placeholder="+1 909 090 0909"
         value={phone}
         onChange={(event) => onChange(event.target.value)}
       />

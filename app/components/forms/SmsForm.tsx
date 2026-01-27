@@ -17,7 +17,7 @@ export default function SmsForm({ phone, message, onChange }: SmsFormProps) {
         </label>
         <Input
           id="sms-number"
-          placeholder="+1 234 567 8900"
+          placeholder="+1 909 090 0909"
           value={phone}
           onChange={(event) => onChange("phone", event.target.value)}
         />
