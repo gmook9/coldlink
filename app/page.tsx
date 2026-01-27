@@ -32,6 +32,8 @@ import Squares from "./components/Squares";
 const LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const MAX_GENERATIONS = 10;
 const STORAGE_KEY = "coldlink_qr_generations";
+const DOWNLOADS_KEY = "coldlink_qr_downloads";
+const MAX_DOWNLOADS_PER_QR = 4;
 
 const escapeWifi = (value: string) => value.replace(/[\\;,:]/g, (match) => `\\${match}`);
 const escapeVCard = (value: string) =>
@@ -88,6 +90,10 @@ export default function Home() {
   const [resolution, setResolution] = useState(1024);
   const [format, setFormat] = useState<"png" | "jpeg" | "svg">("png");
   const [colors, setColors] = useState({ foreground: "#111111", background: "#ffffff" });
+  const [colorsDraft, setColorsDraft] = useState({
+    foreground: "#111111",
+    background: "#ffffff",
+  });
   const [generatedValue, setGeneratedValue] = useState("");
   const [qrDataUrl, setQrDataUrl] = useState("");
   const [qrFileName, setQrFileName] = useState("");
@@ -96,6 +102,7 @@ export default function Home() {
   >(null);
   const [limitToastOpen, setLimitToastOpen] = useState(false);
   const [limitMinutes, setLimitMinutes] = useState(0);
+  const [downloadLimitOpen, setDownloadLimitOpen] = useState(false);
 
   const draftValue = useMemo(() => {
     switch (activeType) {
@@ -198,6 +205,28 @@ export default function Home() {
     return () => window.clearTimeout(timer);
   }, [limitToastOpen]);
 
+  useEffect(() => {
+    if (!downloadLimitOpen) return;
+
+    const timer = window.setTimeout(() => setDownloadLimitOpen(false), 4500);
+    return () => window.clearTimeout(timer);
+  }, [downloadLimitOpen]);
+
+  useEffect(() => {
+    setGeneratedValue("");
+    setQrDataUrl("");
+    setQrFileName("");
+    setPendingDownloadFormat(null);
+  }, [activeType]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setColors(colorsDraft);
+    }, 200);
+
+    return () => window.clearTimeout(timer);
+  }, [colorsDraft]);
+
   const readHistory = () => {
     if (typeof window === "undefined") return [] as number[];
     try {
@@ -212,6 +241,55 @@ export default function Home() {
   const writeHistory = (history: number[]) => {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+  };
+
+  const hashValue = (value: string) => {
+    let hash = 0;
+    for (let i = 0; i < value.length; i += 1) {
+      hash = (hash << 5) - hash + value.charCodeAt(i);
+      hash |= 0;
+    }
+    return hash.toString();
+  };
+
+  const readDownloads = () => {
+    if (typeof window === "undefined") return {} as Record<string, number>;
+    try {
+      const raw = window.localStorage.getItem(DOWNLOADS_KEY);
+      const parsed = raw ? (JSON.parse(raw) as Record<string, number>) : {};
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch {
+      return {} as Record<string, number>;
+    }
+  };
+
+  const writeDownloads = (downloads: Record<string, number>) => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem(DOWNLOADS_KEY, JSON.stringify(downloads));
+  };
+
+  const triggerDownload = (dataUrl: string, fileName: string) => {
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = fileName || "qrcode";
+    link.click();
+  };
+
+  const recordDownloadIfAllowed = (dataUrl: string, fileName: string) => {
+    if (!generatedValue.trim()) return false;
+    const key = hashValue(generatedValue);
+    const downloads = readDownloads();
+    const currentCount = downloads[key] ?? 0;
+
+    if (currentCount >= MAX_DOWNLOADS_PER_QR) {
+      setDownloadLimitOpen(true);
+      return false;
+    }
+
+    triggerDownload(dataUrl, fileName);
+    const nextDownloads = { ...downloads, [key]: currentCount + 1 };
+    writeDownloads(nextDownloads);
+    return true;
   };
 
   const handleGenerate = () => {
@@ -239,11 +317,10 @@ export default function Home() {
     setQrFileName(fileName);
 
     if (pendingDownloadFormat && nextUrl) {
-      const link = document.createElement("a");
-      link.href = nextUrl;
-      link.download = fileName || "qrcode";
-      link.click();
-      setPendingDownloadFormat(null);
+      const didDownload = recordDownloadIfAllowed(nextUrl, fileName);
+      if (didDownload) {
+        setPendingDownloadFormat(null);
+      }
     }
   };
 
@@ -255,10 +332,7 @@ export default function Home() {
       return;
     }
     if (!qrDataUrl) return;
-    const link = document.createElement("a");
-    link.href = qrDataUrl;
-    link.download = qrFileName || "qrcode";
-    link.click();
+    recordDownloadIfAllowed(qrDataUrl, qrFileName);
   };
 
   const handleCopy = async () => {
@@ -455,7 +529,7 @@ export default function Home() {
                   Generate
                 </Button>
                 {generatedValue ? (
-                  <div className="rounded-full bg-zinc-900 px-4 py-2 text-xs text-zinc-400">
+                  <div className="animate-pulse rounded-full border border-emerald-500/30 bg-emerald-500/15 px-4 py-2 text-xs font-medium text-emerald-200">
                     Ready to download
                   </div>
                 ) : null}
@@ -473,15 +547,19 @@ export default function Home() {
               onDataUrlChange={handleDataUrlChange}
             />
             <CustomizeAppearance
-              foreground={colors.foreground}
-              background={colors.background}
+              foreground={colorsDraft.foreground}
+              background={colorsDraft.background}
               onForegroundChange={(value) =>
-                setColors((prev) => ({ ...prev, foreground: value }))
+                setColorsDraft((prev) => ({ ...prev, foreground: value }))
               }
               onBackgroundChange={(value) =>
-                setColors((prev) => ({ ...prev, background: value }))
+                setColorsDraft((prev) => ({ ...prev, background: value }))
               }
-              onReset={() => setColors({ foreground: "#111111", background: "#ffffff" })}
+              onReset={() => {
+                const next = { foreground: "#111111", background: "#ffffff" };
+                setColorsDraft(next);
+                setColors(next);
+              }}
             />
             <DownloadOptions
               resolution={resolution}
@@ -506,6 +584,24 @@ export default function Home() {
                 </ToastDescription>
               </div>
               <ToastAction className="text-xs" onClick={() => setLimitToastOpen(false)}>
+                Dismiss
+              </ToastAction>
+            </div>
+          </Toast>
+        </div>
+      ) : null}
+      {downloadLimitOpen ? (
+        <div className="pointer-events-none fixed bottom-6 right-6 z-20 w-full max-w-sm">
+          <Toast className="pointer-events-auto border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-lg">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <ToastTitle className="text-sm font-semibold">Download limit reached</ToastTitle>
+                <ToastDescription className="text-xs text-zinc-400">
+                  Each QR code can be downloaded up to {MAX_DOWNLOADS_PER_QR} times. Generate a
+                  new QR code to download more.
+                </ToastDescription>
+              </div>
+              <ToastAction className="text-xs" onClick={() => setDownloadLimitOpen(false)}>
                 Dismiss
               </ToastAction>
             </div>
