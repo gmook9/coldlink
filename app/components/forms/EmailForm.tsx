@@ -26,7 +26,7 @@ export default function EmailForm({ address, subject, body, onChange }: EmailFor
 
       <div className="space-y-2">
         <label className="text-sm font-medium text-zinc-300" htmlFor="email-subject">
-          Subject
+          Subject <span className="text-xs text-zinc-500">(optional)</span>
         </label>
         <Input
           id="email-subject"
@@ -38,7 +38,7 @@ export default function EmailForm({ address, subject, body, onChange }: EmailFor
 
       <div className="space-y-2">
         <label className="text-sm font-medium text-zinc-300" htmlFor="email-body">
-          Message
+          Message <span className="text-xs text-zinc-500">(optional)</span>
         </label>
         <textarea
           id="email-body"
