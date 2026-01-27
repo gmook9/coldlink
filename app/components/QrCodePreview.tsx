@@ -134,9 +134,6 @@ export default function QrCodePreview({
         </div>
 
         {error ? <p className="text-sm text-red-600">{error}</p> : null}
-        <button type="button" className="text-sm font-medium text-zinc-400">
-          Customize appearance
-        </button>
       </CardContent>
     </Card>
   );
