@@ -66,7 +66,7 @@ export default function DownloadOptions({
             disabled={!isReady}
             className={`flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300 transition ${
               activeFormat === "jpeg" ? "bg-zinc-900 text-white" : "bg-zinc-950/60"
-            } ${isReady ? "hover:border-zinc-700" : "cursor-not-allowed opacity-60"}`}
+            } ${isReady ? "hover:border-zinc-700!" : "cursor-not-allowed opacity-60"}`}
           >
             <Download className="h-4 w-4" />
             JPEG
@@ -77,7 +77,7 @@ export default function DownloadOptions({
             disabled={!isReady}
             className={`flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300 transition ${
               activeFormat === "svg" ? "bg-zinc-900 text-white" : "bg-zinc-950/60"
-            } ${isReady ? "hover:border-zinc-700" : "cursor-not-allowed opacity-60"}`}
+            } ${isReady ? "hover:border-zinc-700!" : "cursor-not-allowed opacity-60"}`}
           >
             <Download className="h-4 w-4" />
             SVG
@@ -87,7 +87,7 @@ export default function DownloadOptions({
             onClick={onCopy}
             disabled={!isReady}
             className={`flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300 transition ${
-              isReady ? "hover:border-zinc-700" : "cursor-not-allowed opacity-60"
+              isReady ? "hover:border-zinc-700!" : "cursor-not-allowed opacity-60"
             }`}
           >
             <Copy className="h-4 w-4" />
