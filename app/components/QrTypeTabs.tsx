@@ -1,6 +1,19 @@
 "use client";
 
-import { CalendarDays, Link, Mail, MapPin, MessageSquare, Phone, Text, User, Wifi, Bitcoin } from "lucide-react";
+import { useState } from "react";
+import {
+  CalendarDays,
+  ChevronDown,
+  Link,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+  Text,
+  User,
+  Wifi,
+  Bitcoin,
+} from "lucide-react";
 
 export type QrType =
   | "url"
@@ -33,40 +46,64 @@ const tabs: TabConfig[] = [
   { value: "crypto", label: "Crypto", icon: Bitcoin },
 ];
 
-const rows = [tabs.slice(0, 5), tabs.slice(5)];
-
 type QrTypeTabsProps = {
   value: QrType;
   onChange: (next: QrType) => void;
 };
 
 export default function QrTypeTabs({ value, onChange }: QrTypeTabsProps) {
+  const [open, setOpen] = useState(false);
+  const activeTab = tabs.find((tab) => tab.value === value) ?? tabs[0];
+  const ActiveIcon = activeTab.icon;
+
   return (
     <div className="space-y-3">
-      {rows.map((row, index) => (
-        <div key={`row-${index}`} className="flex flex-wrap gap-2">
-          {row.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = value === tab.value;
+      <div className="relative">
+        <button
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
+          className="flex w-full items-center justify-between rounded-2xl border border-zinc-800 bg-zinc-950/60 px-4 py-3 text-sm font-medium text-zinc-100 shadow-sm transition hover:border-zinc-600"
+          aria-expanded={open}
+          aria-haspopup="listbox"
+        >
+          <span className="flex items-center gap-2">
+            <ActiveIcon className="h-4 w-4" />
+            {activeTab.label}
+          </span>
+          <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
+        </button>
 
-            return (
-              <button
-                key={tab.value}
-                type="button"
-                onClick={() => onChange(tab.value)}
-                className={`flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition ${
-                  isActive
-                    ? "border-zinc-800 bg-zinc-950/70 text-white"
-                    : "border-zinc-700/70 bg-zinc-900/40 text-zinc-300 hover:border-zinc-500 hover:text-zinc-100"
-                }`}
-              >
-                <Icon className="h-3.5 w-3.5" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      ))}
+        {open ? (
+          <div className="absolute left-0 right-0 z-20 mt-2 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-lg backdrop-blur">
+            <div className="grid gap-2 sm:grid-cols-2">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = tab.value === value;
+
+                return (
+                  <button
+                    key={tab.value}
+                    type="button"
+                    onClick={() => {
+                      onChange(tab.value);
+                      setOpen(false);
+                    }}
+                    className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-medium transition ${
+                      isActive
+                        ? "border-emerald-400/60 bg-emerald-500/15 text-emerald-200"
+                        : "border-zinc-800 bg-zinc-950/60 text-zinc-300 hover:border-zinc-600 hover:text-zinc-100"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+      </div>
+
       <div className="text-xs text-zinc-400">
         Select a QR code type to customize the content.
       </div>
