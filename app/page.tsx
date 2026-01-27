@@ -362,10 +362,11 @@ export default function Home() {
     <div className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
       <div className="absolute inset-0">
         <Squares
-          speed={0.5}
+          speed={0.3}
           squareSize={40}
           direction="diagonal"
-          borderColor="#271E37"
+          // borderColor="#271E37" OLD COLOR
+          borderColor="#234728"
           hoverFillColor="#222222"
         />
       </div>
@@ -379,11 +380,11 @@ export default function Home() {
               Coldlink
             </p>
           </div>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight sm:text-5xl">
-            Create QR codes from any link in seconds.
+          <h1 className="max-w-3xl text-2xl! font-semibold leading-tight sm:text-5xl">
+            Create QR codes in seconds.
           </h1>
           <p className="max-w-2xl text-base text-zinc-400 sm:text-lg">
-            Paste a URL, generate a crisp QR code, and download it instantly.
+            No expiration and no paywall.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Badge className="flex items-center gap-2 bg-emerald-500/15 text-emerald-200">
@@ -582,6 +583,9 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <footer className="relative z-10 border-t border-zinc-900/60 py-6 text-center text-xs text-zinc-500">
+        © {new Date().getFullYear()} Coldlink
+      </footer>
       {limitToastOpen ? (
         <div className="pointer-events-none fixed bottom-6 right-6 z-20 w-full max-w-sm">
           <Toast className="pointer-events-auto border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-lg">
