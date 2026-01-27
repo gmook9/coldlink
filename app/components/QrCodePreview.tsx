@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import QRCode from "qrcode";
 import { Card, CardContent, CardHeader, Divider } from "@gmook9/pristine-ui";
+import { QrCode } from "lucide-react";
 
 type QrCodePreviewProps = {
   value: string;
@@ -127,8 +128,16 @@ export default function QrCodePreview({
               className="h-56 w-56"
             />
           ) : (
-            <div className="text-center text-sm text-zinc-400">
-              Enter content to generate your QR code.
+            <div className="flex flex-col items-center gap-3 text-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/60">
+                <QrCode className="h-5 w-5 text-zinc-400" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm font-medium text-zinc-200">
+                  Enter content then click Generate
+                </p>
+                <p className="text-xs text-zinc-500">to view your QR code.</p>
+              </div>
             </div>
           )}
         </div>
