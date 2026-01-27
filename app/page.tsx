@@ -391,7 +391,7 @@ export default function Home() {
               <Tag className="h-3.5 w-3.5" />
               100% Free
             </Badge>
-            <Badge className="flex items-center gap-2 bg-zinc-800 text-zinc-200">
+            <Badge className="flex items-center gap-2 bg-zinc-800/65 text-zinc-200">
               <User className="h-3.5 w-3.5" />
               No Signup
             </Badge>
