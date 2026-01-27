@@ -32,7 +32,7 @@ export default function LocationForm({
           </label>
           <Input
             id="location-lat"
-            placeholder="37.7749"
+            placeholder="34.1639"
             value={latitude}
             onChange={(event) => onChange("latitude", event.target.value)}
           />
@@ -44,7 +44,7 @@ export default function LocationForm({
           </label>
           <Input
             id="location-lon"
-            placeholder="-122.4194"
+            placeholder="118.0483"
             value={longitude}
             onChange={(event) => onChange("longitude", event.target.value)}
           />
