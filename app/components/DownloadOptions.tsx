@@ -54,22 +54,11 @@ export default function DownloadOptions({
             className={`flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition ${
               activeFormat === "png"
                 ? "bg-blue-600! text-white"
-                : "bg-zinc-800! text-zinc-200"
+                : "bg-blue-600! text-zinc-200"
             } ${isReady ? "hover:bg-blue-500!" : "cursor-not-allowed opacity-60"}`}
           >
             <Download className="h-4 w-4" />
             PNG
-          </button>
-          <button
-            type="button"
-            onClick={() => onDownload("svg")}
-            disabled={!isReady}
-            className={`flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300 transition ${
-              activeFormat === "svg" ? "bg-zinc-900 text-white" : "bg-zinc-950/60"
-            } ${isReady ? "hover:border-zinc-700" : "cursor-not-allowed opacity-60"}`}
-          >
-            <Download className="h-4 w-4" />
-            SVG
           </button>
           <button
             type="button"
@@ -81,6 +70,17 @@ export default function DownloadOptions({
           >
             <Download className="h-4 w-4" />
             JPEG
+          </button>
+          <button
+            type="button"
+            onClick={() => onDownload("svg")}
+            disabled={!isReady}
+            className={`flex items-center justify-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm font-semibold text-zinc-300 transition ${
+              activeFormat === "svg" ? "bg-zinc-900 text-white" : "bg-zinc-950/60"
+            } ${isReady ? "hover:border-zinc-700" : "cursor-not-allowed opacity-60"}`}
+          >
+            <Download className="h-4 w-4" />
+            SVG
           </button>
           <button
             type="button"
