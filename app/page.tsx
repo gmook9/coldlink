@@ -584,7 +584,15 @@ export default function Home() {
         </section>
       </main>
       <footer className="relative z-10 border-t border-zinc-900/60 py-6 text-center text-xs text-zinc-500">
-        © {new Date().getFullYear()} Coldlink
+        © {new Date().getFullYear()} Coldlink · Made by{" "}
+        <a
+          href="https://www.enchantingbutterfly.com/"
+          className="text-zinc-400 hover:text-zinc-300"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Enchanting Butterfly LLC
+        </a>
       </footer>
       {limitToastOpen ? (
         <div className="pointer-events-none fixed bottom-6 right-6 z-20 w-full max-w-sm">
