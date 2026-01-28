@@ -30,6 +30,9 @@ import DownloadOptions from "./components/DownloadOptions";
 import CustomizeAppearance from "./components/CustomizeAppearance";
 import Squares from "./components/Squares";
 
+// React Country Flag -- https://www.npmjs.com/package/react-country-flag?activeTab=readme
+import ReactCountryFlag from "react-country-flag"
+
 const LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const MAX_GENERATIONS = 10;
 const STORAGE_KEY = "coldlink_qr_generations";
@@ -583,17 +586,37 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="relative z-10 border-t border-zinc-900/60 py-6 text-center text-xs text-zinc-500">
-        © {new Date().getFullYear()} Coldlink · Made by{" "}
-        <a
-          href="https://www.enchantingbutterfly.com/"
-          className="text-zinc-400 hover:text-zinc-300"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Enchanting Butterfly LLC
-        </a>
+      
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-zinc-900/60 py-4 text-center text-[12px] text-zinc-500 flex items-center justify-center gap-1">
+        <span>© {new Date().getFullYear()} Coldlink</span>
+        <span className="text-zinc-700">•</span>
+        <span>
+          Created by{" "}
+          <a
+            href="https://www.enchantingbutterfly.com/"
+            className="text-zinc-400 hover:text-zinc-300"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Enchanting Butterfly LLC
+          </a>
+        </span>
+        <span className="text-zinc-700">•</span>
+        <span>Made in</span>
+        <ReactCountryFlag
+          countryCode="US"
+          svg
+          style={{
+            width: "1.5em",
+            height: "1em",
+            borderRadius: "2px",
+            marginLeft: "2px",
+          }}
+          title="US"
+        />
       </footer>
+
       {limitToastOpen ? (
         <div className="pointer-events-none fixed bottom-6 right-6 z-20 w-full max-w-sm">
           <Toast className="pointer-events-auto border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-lg">
