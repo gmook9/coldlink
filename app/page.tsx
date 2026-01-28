@@ -403,7 +403,7 @@ export default function Home() {
         </section>
 
         <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="border border-zinc-900/70 bg-zinc-900/40">
+          <Card className="relative z-10 border border-zinc-900/70 bg-zinc-900/40">
             <CardHeader>
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg font-semibold">Generate your QR code</h2>
