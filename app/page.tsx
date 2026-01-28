@@ -608,8 +608,8 @@ export default function Home() {
           countryCode="US"
           svg
           style={{
-            width: "1.5em",
-            height: "1em",
+            width: "2em",
+            height: "1.2em",
             borderRadius: "2px",
             marginLeft: "2px",
           }}
