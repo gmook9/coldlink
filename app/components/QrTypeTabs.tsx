@@ -74,7 +74,7 @@ export default function QrTypeTabs({ value, onChange }: QrTypeTabsProps) {
         </button>
 
         {open ? (
-          <div className="absolute left-0 right-0 z-20 mt-2 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-lg backdrop-blur">
+          <div className="absolute left-0 right-0 z-50 mt-2 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-lg backdrop-blur">
             <div className="grid gap-2 sm:grid-cols-2">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
